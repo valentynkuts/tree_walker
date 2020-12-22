@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "720698330739",
+    "project_id": "tree-walker",
+    "storage_bucket": "tree-walker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:720698330739:android:7bb0c4a7370ec601472406",
+        "android_client_info": {
+          "package_name": "com.pjatk.pro.tree_walker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "720698330739-a5ehq98516n408ct4jn3ceie0q72po9o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoH2YtLU5r3WZb3GXshsDfU9jWZZGV8Vs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "720698330739-a5ehq98516n408ct4jn3ceie0q72po9o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
