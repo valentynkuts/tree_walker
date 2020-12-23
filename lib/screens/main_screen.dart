@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:tree_walker/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class ChatScreen extends StatefulWidget {
+class MainScreen extends StatefulWidget {
   static const String id = 'main_screen';
 
   @override
-  _ChatScreenState createState() => _ChatScreenState();
+  _MainScreenState createState() => _MainScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _MainScreenState extends State<MainScreen> {
   final _auth = FirebaseAuth.instance;
   //FirebaseUser loggedInUser;
 
@@ -32,7 +32,7 @@ class _ChatScreenState extends State<ChatScreen> {
       if (user != null) {
         //loggedInUser = user;
         //print(loggedInUser.email);
-        print(user.email);
+        //print(user.email);
       }
     }
     catch(e){
@@ -49,7 +49,8 @@ class _ChatScreenState extends State<ChatScreen> {
           IconButton(
               icon: Icon(Icons.close),
               onPressed: () {
-                //Implement logout functionality
+                _auth.signOut();
+                Navigator.pop(context);
               }),
         ],
         //title: Text('⚡️Chat'),
