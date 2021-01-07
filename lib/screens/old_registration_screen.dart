@@ -1,23 +1,20 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:tree_walker/components/rounded_button.dart';
 import 'package:tree_walker/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:tree_walker/screens/main_screen.dart';
-import 'package:tree_walker/screens/pedometer_screen.dart';
-import 'package:tree_walker/services/firestore_service.dart';
+import 'main_screen.dart';
 import 'chat_screen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
-
-class LoginScreen extends StatefulWidget {
-  static const String id = 'login_screen';
+class RegistrationScreen extends StatefulWidget {
+  static const String id = 'old_registration_screen`';
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
-  //create private _auth object
+class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
   String email;
@@ -50,7 +47,6 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
-                // enter email
                 onChanged: (value) {
                   email = value;
                 },
@@ -64,10 +60,11 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 obscureText: true, //for password
                 textAlign: TextAlign.center,
-                // enter password
                 onChanged: (value) {
+                  //TODO
                   password = value;
                 },
+                //style: TextStyle(color: Colors.black),
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'
                 ),
@@ -75,31 +72,24 @@ class _LoginScreenState extends State<LoginScreen> {
               SizedBox(
                 height: 24.0,
               ),
+
               RoundedButton(
-                title: 'log in',
-                colour: Colors.lightBlueAccent,
+                title: 'Register',
+                colour: Colors.blueAccent,
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
                   try {
-                    //check email, password and return 'user'
-                    final user = await _auth.signInWithEmailAndPassword(
+                    //print(email);
+                    //print(password);
+                    final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
-                    //if ok redirect to main screen
-                    if (user != null) {
-                      print(user.user.uid);
-                      print(user.user.email);
-
-                      //final db = FirestoreService();
-                      //final u = db.getUser(user.user.uid);
-
-                     // Navigator.pushNamed(context, MainScreen.id);
-                      //Navigator.pushNamed(context, ChatScreen.id);
-
-                      Navigator.pushNamed(context, PedometerScreen.id);
-
+                    if(newUser != null){
+                      //Navigator.pushNamed(context, MainScreen.id);
+                      Navigator.pushNamed(context, ChatScreen.id);
                     }
+
                     setState(() {
                       showSpinner = false;
                     });
@@ -116,3 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+
+
+ */

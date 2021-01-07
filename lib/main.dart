@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:tree_walker/screens/pedometer_screen.dart';
 import 'package:tree_walker/screens/welcome_screen.dart';
 import 'package:tree_walker/screens/login_screen.dart';
 import 'package:tree_walker/screens/registration_screen.dart';
 import 'package:tree_walker/screens/main_screen.dart';
+import 'package:tree_walker/screens/chat_screen.dart';
+import 'package:tree_walker/screens/pedometer_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +23,9 @@ class FlashChat extends StatelessWidget {
         WelcomeScreen.id :(context)=> WelcomeScreen(),
         LoginScreen.id :(context)=> LoginScreen(),
         RegistrationScreen.id :(context)=> RegistrationScreen(),
-        MainScreen.id :(context)=> MainScreen()
+        MainScreen.id :(context)=> MainScreen(),
+        ChatScreen.id :(context)=> ChatScreen(),
+        PedometerScreen.id :(context)=> PedometerScreen(),
       },
     );
   }
