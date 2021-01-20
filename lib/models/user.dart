@@ -15,4 +15,12 @@ class OurUser {
       this.steps,
       this.treeCoins,
       this.trees});
+
+  int getSteps(){
+    return this.steps;
+  }
+
+  int getTreeCoins(){
+    return this.treeCoins;
+  }
 }

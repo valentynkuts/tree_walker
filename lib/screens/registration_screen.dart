@@ -17,6 +17,8 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
+  //final db = FirestoreService();
+  //OurUser _user;
   bool showSpinner = false;
   String email;
   String password;
@@ -105,7 +107,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       print(newUser.user.uid);
                       print(newUser.user.email);
                       //----test----
-                      OurUser _user = OurUser();
+                       OurUser _user = OurUser();
                       _user.uid = newUser.user.uid;
                       _user.email = newUser.user.email;
                       _user.fullName = username;
@@ -115,11 +117,17 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       final db = FirestoreService();
                       final res = await db.createUser(_user);
-                      print(res);
+                      print(res);  //todo
                       //String res = "success";
                       // ignore: unrelated_type_equality_checks
                       if (res == "success") {
-                        Navigator.pushNamed(context, MainScreen.id);
+                        //Navigator.pushNamed(context, MainScreen.id);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MainScreen(
+                              userFromlogin: _user,testt: "HELLO FROM login",
+                            )));
+
+
                       }
 
                       // Navigator.pushNamed(context, ChatScreen.id);

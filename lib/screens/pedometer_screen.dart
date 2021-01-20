@@ -22,6 +22,7 @@ class PedometerScreen extends StatefulWidget {
 
 
 class _PedometerScreenState extends State<PedometerScreen> {
+  //---------------------------
   Stream<StepCount> _stepCountStream;
   Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?', _steps = '?';
@@ -35,7 +36,7 @@ class _PedometerScreenState extends State<PedometerScreen> {
   void onStepCount(StepCount event) {
     print(event);
     setState(() {
-      _steps = event.steps.toString();
+      _steps = event.steps.toString();  // steps
     });
   }
 
@@ -72,7 +73,7 @@ class _PedometerScreenState extends State<PedometerScreen> {
 
     if (!mounted) return;
   }
-
+//-------------------------
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

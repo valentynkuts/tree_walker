@@ -5,6 +5,9 @@ class FirestoreService {
   OurUser user;
   final _firestore = FirebaseFirestore.instance;
 
+  OurUser getOurUser(){
+    return this.user;
+  }
   //---- create ----
   Future<String> createUser(OurUser user) async {
     String retVal = "error";
@@ -58,10 +61,12 @@ class FirestoreService {
       // user.steps = docSnapshot.data()["steps"];
       // user.trees = docSnapshot.data()["trees"];
 
+      print("******getUser from firestore*****");
       print(docSnapshot.data());
-      print(docSnapshot.data()["fullName"]);
-      print(user.email);
-      print(user);
+      //print(docSnapshot.data()["fullName"]);
+      //print(user.email);
+      //print(user);
+      print("***********");
 
       return user;
 
@@ -101,9 +106,7 @@ class FirestoreService {
     }
   }
 
-  OurUser getOurUser(){
-    return this.user;
-  }
+
 
   //---- update ----
   void updateUserTreeCoins(OurUser user) async {
@@ -118,7 +121,27 @@ class FirestoreService {
   }
 
   //updateUserTrees  //todo
+  void updateUserTrees(OurUser user) async {
+    try {
+      await _firestore.collection("users").doc(user.uid).update({
+        //await todo
+        "trees": user.trees,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
   //updateUserSteps  //todo
+  void updateUserSteps(OurUser user) async {
+    try {
+      await _firestore.collection("users").doc(user.uid).update({
+        //await todo
+        "steps": user.steps,
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
 
   //---- delete ----
   void deleteUser(OurUser user) async {
