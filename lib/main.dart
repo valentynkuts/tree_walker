@@ -12,10 +12,12 @@ import 'package:tree_walker/screens/pedometer_screen.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(FlashChat());
+  runApp(TreeWalker());
 }
 
-class FlashChat extends StatelessWidget {
+class TreeWalker extends StatelessWidget {
+  //PageController _pageController;  //todo
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

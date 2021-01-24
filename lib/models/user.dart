@@ -23,4 +23,24 @@ class OurUser {
   int getTreeCoins(){
     return this.treeCoins;
   }
+
+  factory OurUser.fromJson(Map<String, dynamic> json){
+    return OurUser(
+        email: json['email'],
+        fullName: json['fullName'],
+        steps: json['steps'],
+      treeCoins: json['treeCoins'],
+      trees: json['trees'],
+    );
+  }
+
+  Map<String,dynamic> toMap(){
+    return {
+      'email': email,
+      'fullName':fullName,
+      'steps':steps,
+      'treeCoins':treeCoins,
+      'trees':trees
+    };
+  }
 }

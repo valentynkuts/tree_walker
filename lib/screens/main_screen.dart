@@ -154,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
                     Expanded(
                       child: ReusableCard(
                         colour: kInactiveCardColour,
-                        cardChild: Column(
+                        cardChild: Column(         //TODO
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
@@ -173,6 +173,7 @@ class _MainScreenState extends State<MainScreen> {
                   ],
                 )),
             Expanded(
+              flex: 2,
                 child: Row(
                   children: [
                     Expanded(
@@ -248,10 +249,6 @@ class _MainScreenState extends State<MainScreen> {
                         cardChild: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Navigation',
-                              style: kLabelTextStyle,
-                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [

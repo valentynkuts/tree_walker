@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:modal_progress_hud/modal_progress_hud.dart';
 import 'package:tree_walker/components/round_icon_button.dart';
 import 'package:tree_walker/models/user.dart';
 import 'package:tree_walker/screens/main_screen.dart';
 import 'package:tree_walker/screens/pedometer_screen.dart';
+import 'package:tree_walker/services/firestore_service.dart';
 import '../constants.dart';
 import '../components/reusable_card.dart';
 import '../components/bottom_button.dart';
+import '../shared/loading.dart';
 
 class LeaderboardScreen extends StatefulWidget {
   static const String id = 'leaderboard_screen';
@@ -24,9 +27,84 @@ class LeaderboardScreen extends StatefulWidget {
 }
 
 class _LeaderboardScreenState extends State<LeaderboardScreen> {
+  var arr = [
+    'aaaa',
+    'bbbb',
+    'cccc',
+    'dddd',
+    'eeee',
+    'ffff',
+    'hhhh',
+    'kkkk',
+    'mmmm',
+    'wwww'
+  ];
+  List<OurUser> listUsers;
+  FirestoreService db = FirestoreService();
+  int numOfUsers = 8;
+  bool loading = false;
+
+  // Future<List> getListUser() async {
+  //
+  //   //final db = FirestoreService();
+  //   listUsers = await db.getTenBestUsers();
+  //
+  //   print("----getListUser from leaderboard--");
+  //   print(listUsers);
+  //   print("------------------");
+  //
+  //   return listUsers;
+  // }
+
+  Future<List<OurUser>> getListUser(int num) async {
+    //final db = FirestoreService();
+    final listOfUsers = await db.getTenBestUsers(num);
+
+    print("----getListUser from leaderboard--");
+    print(listOfUsers);
+    print(listOfUsers.first.fullName);
+    print("------------------");
+
+    return listOfUsers;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    print(".......leaderboars screen ......");
+    getListUser(numOfUsers).then((list) {
+      ////ok
+      setState(() {
+        listUsers = list;
+      });
+     // listUsers = null;
+      if(listUsers == null){ //todo
+        setState(() {loading = true;});
+      } else{
+        setState(() {loading = false;});
+      }
+
+      print(".......linitState ......");
+      //print(listUsers[0].fullName);
+    });
+
+    //print(listUsers[0].fullName);
+
+    // for (var u in listUsers) {
+    //]   print(u.fullName);
+    // }
+
+    // print(listUsers.first);
+
+    // final test = getListUser();
+    //print(test);
+    print("................");
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: AppBar(
         title: Text('LEADER BOARD'),
         backgroundColor: Color(0xFF0f0f1e),
@@ -37,40 +115,64 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(
-              child: Container(
-            padding: EdgeInsets.all(15.0),
-            alignment: Alignment.bottomLeft,
-            child: Text(
-              'Your Result',
-              style: kTitleTextStyle,
-            ),
-          )),
-          Expanded(
-            flex: 2,
-            child: ReusableCard(
-              colour: kActiveCardColour,
-              cardChild: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'Normal',
-                    //resultText.toUpperCase(),
-                    style: kResultTextStyle,
+            flex: 3,
+            child: CustomScrollView(
+              //semanticChildCount: 10,
+              slivers: [
+                SliverList(
+                  // delegate: SliverChildBuilderDelegate(
+                  //   (context, index) {
+                  //     return Container(
+                  //       height: 100.0,
+                  //       alignment: Alignment.center,
+                  //       color: Colors.blue[100 * (index % 9)],
+                  //       //child: Text("Menu Item $index"),
+                  //       child: Text(
+                  //         //"Menu Item " + arr[index],
+                  //         listUsers[index].fullName +
+                  //             " steps: " +
+                  //             listUsers[index].steps.toString(),
+                  //       ),
+                  //     );
+                  //   },
+                  //   childCount: listUsers.length,
+                  // ),
+                  //----------
+                  delegate: SliverChildListDelegate(
+                    [
+                      for (var i = 0; i < listUsers.length; i++)
+                        Container(
+                          height: 100.0,
+                          alignment: Alignment.center,
+                          //color: Colors.blue[100 * (i % 9)],
+                          //color: Color(0xFF0f0f1e),
+                          //child: Text("Menu Item $index"),
+                          child: Text(
+                              //"Menu Item " + arr[index],
+                              listUsers[i].fullName +
+                                  " has " +
+                                  listUsers[i].steps.toString() +
+                                  " steps ",
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20.0,
+                              )),
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1.0, color: Colors.grey)),
+                          // ListTile(
+                          //   title: Text(
+                          //       listUsers[i].fullName,
+                          //     style: TextStyle(
+                          //       color: Colors.white70,
+                          //     )
+                          //   ),
+                        ),
+                    ],
                   ),
-                  Text(
-                    '18.3',
-                    //bmiResult,
-                    style: kBMITextStyle,
-                  ),
-                  Text(
-                    'Your BMI result is quite low, you should eat more!',
-                    //interpretation,
-                    textAlign: TextAlign.center,
-                    style: kBodyTextStyle,
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
 
@@ -83,10 +185,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                   cardChild: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text(
-                        'Navigation',
-                        style: kLabelTextStyle,
-                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

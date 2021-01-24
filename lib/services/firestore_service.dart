@@ -4,10 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirestoreService {
   OurUser user;
   final _firestore = FirebaseFirestore.instance;
+  List<OurUser> list = new List();
 
-  OurUser getOurUser(){
+  OurUser getOurUser() {
     return this.user;
   }
+
   //---- create ----
   Future<String> createUser(OurUser user) async {
     String retVal = "error";
@@ -69,18 +71,15 @@ class FirestoreService {
       print("***********");
 
       return user;
-
     } catch (e) {
       print(e);
     }
   }
 
-
   void readUser1(String userID) async {
     DocumentSnapshot docSnapshot;
     try {
-      docSnapshot =
-      await _firestore.collection("users").doc(user.uid).get();
+      docSnapshot = await _firestore.collection("users").doc(user.uid).get();
       print(docSnapshot.data());
       print(docSnapshot.data()["email"]);
 
@@ -100,13 +99,142 @@ class FirestoreService {
       // user.trees = docSnapshot.data()["trees"];
 
       print("readUser1 -- ${user.fullName}");
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<List<OurUser>> getTenBestUsers(int num) async{
+    try {
+
+      /*Future<QuerySnapshot> qSn = _firestore
+          .collection("users")
+          .orderBy("steps", descending: true)
+          .limit(2)
+          .get();*/
+
+//------------ ok -----------
+      Query qSn1 =  _firestore
+          .collection("users")
+          .orderBy("steps", descending: true)
+          .limit(num);
+
+      QuerySnapshot qSn2 = await qSn1.get();
+
+      OurUser u;
+
+      qSn2.docs.forEach((doc) {
+        print("==== inside getTenBestUsers====");
+        print(doc["fullName"]);
+        print(doc.data()["email"]);
+        print(doc.data()["steps"]);
+
+        u = OurUser(
+          uid: doc.id,
+          fullName: doc.data()["fullName"],
+          email: doc.data()["email"],
+          treeCoins: doc.data()["treeCoins"],
+          steps: doc.data()["steps"],
+          trees: doc.data()["trees"],
+        );
+
+        list.add(u);
+
+        print(u.fullName);
+        print("***********");
+        print(list);
+        for (var n in list) {
+          print(n.fullName);
+        }
+      });
+
+
+///////////////////// - 1 - ////////////////////
+      /*qSn.then((querySnapshot) {
+        final docs = querySnapshot.docs;
+        int c = 0;
+            for (var doc in docs){
+              c++;
+              print(doc.data()["fullName"]);
+
+              u = OurUser(
+                    uid: doc.id,
+                    fullName: doc.data()["fullName"],
+                    email: doc.data()["email"],
+                    treeCoins: doc.data()["treeCoins"],
+                    steps: doc.data()["steps"],
+                    trees: doc.data()["trees"],
+                  );
+              list.add(u);
+              print(list);
+             }
+            print(c);
+      });*/
+//////////////////// - 2 - ////////////////////
+
+
+      /*qSn.then((querySnapshot) {
+
+            querySnapshot.docs.forEach((doc) {
+              print("==== inside getTenBestUsers====");
+              print(doc["fullName"]);
+              print(doc.data()["email"]);
+              print(doc.data()["steps"]);
+
+              u = OurUser(
+                uid: doc.id,
+                fullName: doc.data()["fullName"],
+                email: doc.data()["email"],
+                treeCoins: doc.data()["treeCoins"],
+                steps: doc.data()["steps"],
+                trees: doc.data()["trees"],
+              );
+
+             list.add(u);
+
+              print(u.fullName);
+              print("***********");
+              print(list);
+              for (var n in list) {
+                print(n.fullName);
+              }
+            });
+
+          });*/
+
+      //print(list);
+//////////////////// - 3 - ////////////////////
+      // final data = qSn.then((QuerySnapshot querySnapshot) => {
+      //   querySnapshot.docs.map(
+      //           (doc) =>
+      //              OurUser(
+      //               uid: doc.id,
+      //               fullName: doc.data()["fullName"],
+      //               email: doc.data()["email"],
+      //               treeCoins: doc.data()["treeCoins"],
+      //               steps: doc.data()["steps"],
+      //               trees: doc.data()["trees"],
+      //             )
+      //           ).toList()
+      // });
+
+      print("******getTenBestUsers from firestore*****");
+     // print(data);
+      //data.then((value) => value.forEach((element) { element.forEach((e) {print(e.fullName); });}));
+      print("******iiii*****");
+
+
+      return list;
 
     } catch (e) {
       print(e);
     }
   }
 
-
+  Stream<List<OurUser>> getOurUsers() {
+    return _firestore.collection('users').snapshots().map((snapshot) =>
+        snapshot.docs.map((doc) => OurUser.fromJson(doc.data())).toList());
+  }
 
   //---- update ----
   void updateUserTreeCoins(OurUser user) async {
@@ -131,6 +259,7 @@ class FirestoreService {
       print(e);
     }
   }
+
   //updateUserSteps  //todo
   void updateUserSteps(OurUser user) async {
     try {
