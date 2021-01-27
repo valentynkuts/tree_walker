@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 //-----------
 const kBottomContainerHeight = 80.0;
 const kActiveCardColour = Color(0xff1d1e33);
@@ -6,15 +7,13 @@ const kInactiveCardColour = Color(0xff111328);
 const kBottomContainerColour = Color(0xFFEB1555);
 
 const kLabelTextStyle = TextStyle(
-  fontSize: 18.0,
-  color: Color(0xff8d8e98),
+    fontSize: 18.0,
+    //color: Color(0xff8d8e98),
+    color: Colors.white,
 );
 
 const kNumberTextStyle = TextStyle(
-  fontSize: 50.0,
-  fontWeight: FontWeight.w800,
-  color: Colors.white70
-);
+    fontSize: 50.0, fontWeight: FontWeight.w800, color: Colors.white70);
 
 const kLargeButtonTextStyle = TextStyle(
   fontSize: 25.0,
@@ -28,7 +27,7 @@ const kTitleTextStyle = TextStyle(
 );
 
 const kResultTextStyle = TextStyle(
- color: Color(0xff24d876),
+  color: Color(0xff24d876),
   //color: Colors.white70,
   fontSize: 22.0,
   fontWeight: FontWeight.bold,
@@ -45,8 +44,6 @@ const kBodyTextStyle = TextStyle(
   //fontWeight: FontWeight.bold,
   color: Color(0xff24d876),
 );
-
-
 
 //------------
 const kSendButtonTextStyle = TextStyle(
@@ -76,9 +73,9 @@ const kMessageContainerDecoration = BoxDecoration(
 );
 
 const kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter a value',//'Enter your email',
-  contentPadding:
-  EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+  hintText: 'Enter a value',
+  //'Enter your email',
+  contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),

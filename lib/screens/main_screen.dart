@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pedometer/pedometer.dart';
 import 'package:tree_walker/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tree_walker/models/user.dart';
@@ -25,9 +26,9 @@ import 'package:tree_walker/calculator_brain.dart';
 // }
 
 
-FirestoreService db = FirestoreService();
+//FirestoreService db = FirestoreService();
 //User loggedInUser;
-final _auth = FirebaseAuth.instance;
+//final _auth = FirebaseAuth.instance;
 
 
 class MainScreen extends StatefulWidget {
@@ -48,18 +49,11 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-  //Gender selectedGender;
-  //int height = 180;
-  //int weight = 60;
-  //int age = 20;
-
-  final _auth = FirebaseAuth.instance; //????
-  User loggedInUser; //????
-//-------------ok---------
-
   FirestoreService db = FirestoreService();
-
+  final _auth = FirebaseAuth.instance;
   OurUser ourUser;
+  User loggedInUser; //????
+
 
   Future<OurUser> getOurUser() async {
     //final _auth = FirebaseAuth.instance;  /////// todo
@@ -79,15 +73,12 @@ class _MainScreenState extends State<MainScreen> {
       final user = _auth.currentUser;
       if (user != null) {
         loggedInUser = user;
-        //print(loggedInUser.email);
-        //print(user.email);
       }
     }
     catch (e) {
       print(e);
     }
   }
-  //------------------------
 
   @override
   void initState() {
@@ -109,10 +100,7 @@ class _MainScreenState extends State<MainScreen> {
 
     });*/
 
-
-
   }
-
 
 
   @override
@@ -280,10 +268,13 @@ class _MainScreenState extends State<MainScreen> {
                                     onPressed: () {
                                       // Navigator.pushNamed(context, PedometerScreen.id);
                                       //Navigator.pushNamed(context, LeaderboardScreen.id);
-                                      Navigator.push(context,
-                                      MaterialPageRoute(builder: (context) => LeaderboardScreen(
-                                        ourUser: ourUser,
-                                      )));
+
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => PedometerScreen(
+                                                ourUser: ourUser,
+                                              )));
                                       // setState(() {
                                       //   ourUser.treeCoins++;
                                       // });
