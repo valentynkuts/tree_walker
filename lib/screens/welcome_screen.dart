@@ -42,7 +42,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: animation.value,
+      //backgroundColor: animation.value,
+      backgroundColor: Colors.teal,
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 24.0),
         child: Column(
@@ -62,6 +63,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 Text(
                   'Tree walker',
                   style: TextStyle(
+                    color: Colors.white,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
                   ),
@@ -73,14 +75,16 @@ class _WelcomeScreenState extends State<WelcomeScreen>
             ),
             RoundedButton(
               title: 'log in',
-              colour: Colors.lightBlueAccent,
+              colour: Colors.teal[800],
+              //colour: Colors.lightBlueAccent,
               onPressed: () {
                 Navigator.pushNamed(context, LoginScreen.id);
               },
             ),
             RoundedButton(
               title: 'Register',
-              colour: Colors.blueAccent,
+              colour: Colors.teal[300],
+              //colour: Colors.blueAccent,
               onPressed: () {
                 Navigator.pushNamed(context, RegistrationScreen.id);
               },

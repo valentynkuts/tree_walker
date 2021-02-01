@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tree_walker/models/user.dart';
 import 'package:tree_walker/screens/leaderboard_screen.dart';
 import 'package:tree_walker/screens/pedometer_screen.dart';
+import 'package:tree_walker/screens/shop_screen.dart';
 import 'package:tree_walker/services/firestore_service.dart';
 
 import 'package:tree_walker/screens/results_page.dart';
@@ -36,12 +37,12 @@ class MainScreen extends StatefulWidget {
 
   //OurUser ourUserW;  //ok
 
-  final OurUser userFromlogin;
+  final OurUser userMain;
   String testt;
 
   //String TEST;
 
-  MainScreen({@required this.userFromlogin, this.testt});
+  MainScreen({@required this.userMain, this.testt});
 
   @override
   _MainScreenState createState() => _MainScreenState();
@@ -51,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
 
   FirestoreService db = FirestoreService();
   final _auth = FirebaseAuth.instance;
-  OurUser ourUser;
+  OurUser ourUserMain;
   User loggedInUser; //????
 
 
@@ -59,13 +60,13 @@ class _MainScreenState extends State<MainScreen> {
     //final _auth = FirebaseAuth.instance;  /////// todo
     final loggedInUser = _auth.currentUser;
     //final db = FirestoreService();  ////// todo
-    ourUser = await db.getUser(loggedInUser.uid); //get OurUser
+    ourUserMain = await db.getUser(loggedInUser.uid); //get OurUser
 
     print("----getOurUser from MAIN---");
-    print(ourUser.email);
+    print(ourUserMain.email);
     print("------------------");
 
-    return ourUser;
+    return ourUserMain;
   }
 
   void getCurrentUser() async {
@@ -84,9 +85,9 @@ class _MainScreenState extends State<MainScreen> {
   void initState() {
     super.initState();
     print(".......MAIN screen ......");
-    print(widget.userFromlogin.fullName); //TODO ????
-    ourUser = widget.userFromlogin;
-    print(ourUser.email);
+    print(widget.userMain.fullName); //TODO ????
+    ourUserMain = widget.userMain;
+    print(ourUserMain.email);
     print(widget.testt);
     print("................");
 
@@ -106,11 +107,11 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFF0f0f1e),
+        backgroundColor: Colors.teal,//Color(0xFF0f0f1e),
         appBar: AppBar(
-            title: Text('MAIN'),
+            title: Text(ourUserMain.fullName.toUpperCase()),
             centerTitle: true,
-            backgroundColor: Color(0xFF0f0f1e)
+            backgroundColor: Colors.teal,//Color(0xFF0f0f1e)
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -126,7 +127,7 @@ class _MainScreenState extends State<MainScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              ourUser.treeCoins.toString(),
+                              ourUserMain.treeCoins.toString(),
                               //widget.userFromlogin.treeCoins.toString(),
                               style: kNumberTextStyle,
                             ),
@@ -147,7 +148,7 @@ class _MainScreenState extends State<MainScreen> {
                           children: [
                             Text(
                               //widget.userFromlogin.trees.toString(),
-                              ourUser.trees.toString(),
+                              ourUserMain.trees.toString(),
                               style: kNumberTextStyle,
                             ),
                             Text(
@@ -176,7 +177,7 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             Text(
                               //widget.userFromlogin.steps.toString(),
-                              ourUser.steps.toString(),
+                              ourUserMain.steps.toString(),
                               style: kNumberTextStyle,
                             ),
                             Row(
@@ -188,14 +189,15 @@ class _MainScreenState extends State<MainScreen> {
                                 //       Icons.add, color: Colors.white,),
                                 //     onPressed: null
                                 // ),
-                                RoundIconButton(
+                                //----------------
+                               /* RoundIconButton(
                                     icon: FontAwesomeIcons.minus,
                                     onPressed: () {
                                       setState(() {
-                                        //ourUser.steps--;
-                                        widget.userFromlogin.steps--;
+                                        ourUserMain.steps--;
+                                        //widget.userMain.steps--;
                                       });
-                                     db.updateUserSteps(ourUser);
+                                     db.updateUserSteps(ourUserMain);
                                     }),
                                 SizedBox(width: 70.0),
                                 // FloatingActionButton(
@@ -209,15 +211,16 @@ class _MainScreenState extends State<MainScreen> {
                                     onPressed: () {
                                       setState(() {
                                         //widget.userFromlogin.steps++;
-                                        ourUser.steps++;
+                                        ourUserMain.steps++;
                                       });
-                                      db.updateUserSteps(ourUser);
+                                      db.updateUserSteps(ourUserMain);
 
-                                      if (ourUser.steps % 10000 == 0) {
-                                        ourUser.treeCoins ++;
-                                        db.updateUserTreeCoins(ourUser);
+                                      if (ourUserMain.steps % 10000 == 0) {
+                                        ourUserMain.treeCoins ++;
+                                        db.updateUserTreeCoins(ourUserMain);
                                       }
-                                    }),
+                                    }),*/
+                                //------------------------------
                               ],
                             ),
                           ],
@@ -249,12 +252,12 @@ class _MainScreenState extends State<MainScreen> {
                                 RoundIconButton(
                                     icon: FontAwesomeIcons.angleLeft,
                                     onPressed: () {
-                                      Navigator.pushNamed(
-                                          context, ChatScreen.id);
-                                      // setState(() {
-                                      //   ourUser.treeCoins--;
-                                      // });
-                                      // db.updateUserTreeCoins(ourUser);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => ShopScreen(
+                                                ourUserShop: ourUserMain,
+                                              )));
                                     }),
                                 SizedBox(width: 70.0),
                                 // FloatingActionButton(
@@ -273,7 +276,7 @@ class _MainScreenState extends State<MainScreen> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => PedometerScreen(
-                                                ourUser: ourUser,
+                                                oUserPedometer: ourUserMain,
                                               )));
                                       // setState(() {
                                       //   ourUser.treeCoins++;

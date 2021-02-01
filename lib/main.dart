@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:tree_walker/screens/leaderboard_screen.dart';
 import 'package:tree_walker/screens/pedometer_screen.dart';
+import 'package:tree_walker/screens/shop_screen.dart';
 import 'package:tree_walker/screens/welcome_screen.dart';
 import 'package:tree_walker/screens/login_screen.dart';
 import 'package:tree_walker/screens/registration_screen.dart';
@@ -30,6 +31,7 @@ class TreeWalker extends StatelessWidget {
         ChatScreen.id :(context)=> ChatScreen(),
         PedometerScreen.id :(context)=> PedometerScreen(),
         LeaderboardScreen.id :(context)=> LeaderboardScreen(),
+        ShopScreen.id :(context)=> ShopScreen()
       },
       // theme: ThemeData.dark().copyWith(
       //   primaryColor: Color(0xFF0f0f1e),  //bar

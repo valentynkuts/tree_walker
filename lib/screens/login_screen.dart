@@ -22,7 +22,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  OurUser ourUser;
+  OurUser ourUserLogin;
   FirestoreService db = FirestoreService();
   final _auth = FirebaseAuth.instance;
   bool showSpinner = false;
@@ -34,10 +34,10 @@ class _LoginScreenState extends State<LoginScreen> {
     //final _auth = FirebaseAuth.instance;  /////// todo
     final loggedInUser = _auth.currentUser;
     //final db = FirestoreService();  ////// todo
-    ourUser = await db.getUser(loggedInUser.uid);  //get OurUser
+    ourUserLogin = await db.getUser(loggedInUser.uid);  //get OurUser
 
     print("----getOurUser from login---");
-    print(ourUser.email);
+    print(ourUserLogin.email);
     print("------------------");
 
   }
@@ -47,7 +47,8 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.teal,
+      //backgroundColor: Colors.white,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -71,6 +72,8 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                cursorColor: Colors.white,
                 // enter email
                 onChanged: (value) {
                   email = value;
@@ -85,12 +88,14 @@ class _LoginScreenState extends State<LoginScreen> {
               TextField(
                 obscureText: true, //for password
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                cursorColor: Colors.white,
                 // enter password
                 onChanged: (value) {
                   password = value;
                 },
                 decoration: kTextFieldDecoration.copyWith(
-                    hintText: 'Enter your password'
+                    hintText: 'Enter your password',
                 ),
               ),
               SizedBox(
@@ -98,19 +103,19 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               RoundedButton(
                 title: 'log in',
-                colour: Colors.lightBlueAccent,
+                colour: Colors.teal[800],
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
                   });
                   try {
                     //check email, password and return 'user'
-                    final user = await _auth.signInWithEmailAndPassword(
+                    final userL = await _auth.signInWithEmailAndPassword(
                         email: email, password: password);
                     //if ok redirect to main screen
-                    if (user != null) {
-                      print(user.user.uid);
-                      print(user.user.email);
+                    if (userL != null) {
+                      print(userL.user.uid);
+                      print(userL.user.email);
 
 
                       print("==== OurUser from middle====");
@@ -118,12 +123,12 @@ class _LoginScreenState extends State<LoginScreen> {
                      // print(ourUser.steps);
                       print("==================");
 
-                      if(ourUser != null){
+                      if(ourUserLogin != null){
                         print("### not null ####");
-                        print(ourUser.email);
+                        print(ourUserLogin.email);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MainScreen(
-                              userFromlogin: ourUser, testt: "HELLO FROM login",
+                              userMain: ourUserLogin, testt: "HELLO FROM login",
                             )));
                         print("#######");
                       }

@@ -27,7 +27,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.teal,
       body: ModalProgressHUD(
         inAsyncCall: showSpinner,
         child: Padding(
@@ -51,6 +51,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               TextField(
                 keyboardType: TextInputType.text,
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                cursorColor: Colors.white,
+
                 onChanged: (value) {
                   username = value;
                 },
@@ -63,6 +66,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               TextField(
                 keyboardType: TextInputType.emailAddress,
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                cursorColor: Colors.white,
+
                 onChanged: (value) {
                   email = value;
                 },
@@ -75,6 +81,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               TextField(
                 obscureText: true, //for password
                 textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 20.0, color: Colors.white),
+                cursorColor: Colors.white,
                 onChanged: (value) {
                   //TODO
                   password = value;
@@ -88,7 +96,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               ),
               RoundedButton(
                 title: 'Register',
-                colour: Colors.blueAccent,
+                colour: Colors.teal[800],
                 onPressed: () async {
                   setState(() {
                     showSpinner = true;
@@ -124,7 +132,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         //Navigator.pushNamed(context, MainScreen.id);
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MainScreen(
-                              userFromlogin: _user,testt: "HELLO FROM login",
+                              userMain: _user,testt: "HELLO FROM login",
                             )));
 
 

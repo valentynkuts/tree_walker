@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 //-----------
 const kBottomContainerHeight = 80.0;
-const kActiveCardColour = Color(0xff1d1e33);
-const kInactiveCardColour = Color(0xff111328);
+const kActiveCardColour = Color(0xff00695c);
+const kInactiveCardColour = Color(0xff00695c);//Color(0xff111328);
 const kBottomContainerColour = Color(0xFFEB1555);
 
 const kLabelTextStyle = TextStyle(
@@ -75,16 +75,20 @@ const kMessageContainerDecoration = BoxDecoration(
 const kTextFieldDecoration = InputDecoration(
   hintText: 'Enter a value',
   //'Enter your email',
+  hintStyle: TextStyle(fontSize: 15.0, color: Colors.white),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   enabledBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 1.0),
+    borderSide: BorderSide(color: Colors.white, width: 1.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
   focusedBorder: OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.blueAccent, width: 2.0),
+    borderSide: BorderSide(color: Colors.white, width: 2.0),
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
+
+
+//Color(0xff00695c)
