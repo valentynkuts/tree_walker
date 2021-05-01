@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 
-//-----------
 const kBottomContainerHeight = 80.0;
 const kActiveCardColour = Color(0xff00695c);
-const kInactiveCardColour = Color(0xff00695c);//Color(0xff111328);
+const kInactiveCardColour = Color(0xff00695c); //Color(0xff111328);
 const kBottomContainerColour = Color(0xFFEB1555);
 
 const kLabelTextStyle = TextStyle(
-    fontSize: 18.0,
-    //color: Color(0xff8d8e98),
-    color: Colors.white,
+  fontSize: 18.0,
+  color: Colors.white,
 );
 
 const kNumberTextStyle = TextStyle(
@@ -28,7 +26,6 @@ const kTitleTextStyle = TextStyle(
 
 const kResultTextStyle = TextStyle(
   color: Color(0xff24d876),
-  //color: Colors.white70,
   fontSize: 22.0,
   fontWeight: FontWeight.bold,
 );
@@ -41,11 +38,9 @@ const kBMITextStyle = TextStyle(
 
 const kBodyTextStyle = TextStyle(
   fontSize: 22.0,
-  //fontWeight: FontWeight.bold,
   color: Color(0xff24d876),
 );
 
-//------------
 const kSendButtonTextStyle = TextStyle(
   color: Colors.lightBlueAccent,
   fontWeight: FontWeight.bold,
@@ -55,13 +50,11 @@ const kSendButtonTextStyle = TextStyle(
 const kMessageTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   hintText: 'Type your message here...',
-  //hintText: 'Information...',
   border: InputBorder.none,
 );
 
 const kMainTextFieldDecoration = InputDecoration(
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
-  //hintText: 'Type your message here...',
   hintText: 'Information...',
   border: InputBorder.none,
 );
@@ -73,8 +66,7 @@ const kMessageContainerDecoration = BoxDecoration(
 );
 
 const kTextFieldDecoration = InputDecoration(
-  hintText: 'Enter a value',
-  //'Enter your email',
+  hintText: 'Enter your email',
   hintStyle: TextStyle(fontSize: 15.0, color: Colors.white),
   contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
   border: OutlineInputBorder(
@@ -89,6 +81,3 @@ const kTextFieldDecoration = InputDecoration(
     borderRadius: BorderRadius.all(Radius.circular(32.0)),
   ),
 );
-
-
-//Color(0xff00695c)

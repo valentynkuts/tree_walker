@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'login_screen.dart';
 import 'registration_screen.dart';
 import 'package:tree_walker/components/rounded_button.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const String id = 'welcome_screen';
@@ -21,7 +20,8 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: Duration(seconds: 1), vsync: this);
+    controller =
+        AnimationController(duration: Duration(seconds: 1), vsync: this);
 
     animation = ColorTween(begin: Colors.blueGrey, end: Colors.white)
         .animate(controller);
@@ -55,8 +55,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                 Hero(
                   tag: 'logo',
                   child: Container(
-                    child: Image.asset('images/logo.png'),
-                    //child: Image.asset('images/tree.png'),
+                    child: Image.asset('images/tree4.png'),
                     height: 60.0,
                   ),
                 ),
@@ -66,6 +65,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                     color: Colors.white,
                     fontSize: 45.0,
                     fontWeight: FontWeight.w900,
+                    fontFamily: 'Pacifico',
                   ),
                 ),
               ],

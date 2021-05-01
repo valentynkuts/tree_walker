@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class OurUser {
   String uid;
@@ -16,31 +15,31 @@ class OurUser {
       this.treeCoins,
       this.trees});
 
-  int getSteps(){
+  int getSteps() {
     return this.steps;
   }
 
-  int getTreeCoins(){
+  int getTreeCoins() {
     return this.treeCoins;
   }
 
-  factory OurUser.fromJson(Map<String, dynamic> json){
+  factory OurUser.fromJson(Map<String, dynamic> json) {
     return OurUser(
-        email: json['email'],
-        fullName: json['fullName'],
-        steps: json['steps'],
+      email: json['email'],
+      fullName: json['fullName'],
+      steps: json['steps'],
       treeCoins: json['treeCoins'],
       trees: json['trees'],
     );
   }
 
-  Map<String,dynamic> toMap(){
+  Map<String, dynamic> toMap() {
     return {
       'email': email,
-      'fullName':fullName,
-      'steps':steps,
-      'treeCoins':treeCoins,
-      'trees':trees
+      'fullName': fullName,
+      'steps': steps,
+      'treeCoins': treeCoins,
+      'trees': trees
     };
   }
 }

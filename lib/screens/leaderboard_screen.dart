@@ -20,7 +20,6 @@ class LeaderboardScreen extends StatefulWidget {
 }
 
 class _LeaderboardScreenState extends State<LeaderboardScreen> {
-
   List<OurUser> listUsers;
   FirestoreService db = FirestoreService();
   int numOfUsers = 8;
@@ -29,14 +28,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   OurUser oUserLB;
 
   Future<List<OurUser>> getListUser(int num) async {
-    //final db = FirestoreService();
     final listOfUsers = await db.getTenBestUsers(num);
-
-    print("----getListUser from leaderboard--");
-    print(listOfUsers);
-    print(listOfUsers.first.fullName);
-    print("------------------");
-
     return listOfUsers;
   }
 
@@ -44,16 +36,12 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
   void initState() {
     super.initState();
     oUserLB = widget.ourUserLeaderB;
-
-    print(".......leaderboars screen ......");
     try {
       getListUser(numOfUsers).then((list) {
-        ////ok
         setState(() {
           listUsers = list;
           amountOfUsers = listUsers.length;
         });
-        // listUsers = null;
         if (listUsers == null) {
           //todo
           setState(() {
@@ -64,22 +52,7 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
             loading = false;
           });
         }
-
-        print(".......linitState ......");
-        //print(listUsers[0].fullName);
       });
-
-      //print(listUsers[0].fullName);
-
-      // for (var u in listUsers) {
-      //]   print(u.fullName);
-      // }
-
-      // print(listUsers.first);
-
-      // final test = getListUser();
-      //print(test);
-      print("................");
     } catch (e) {
       print(e);
     }
@@ -92,9 +65,9 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
         : Scaffold(
             appBar: AppBar(
               title: Text('LEADER BOARD'),
-              backgroundColor: Colors.teal,//Color(0xFF0f0f1e),
+              backgroundColor: Colors.teal,
             ),
-            backgroundColor: Colors.teal,//Color(0xFF0f0f1e),
+            backgroundColor: Colors.teal,
             body: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -104,38 +77,15 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                   child: ReusableCard(
                     colour: kActiveCardColour,
                     cardChild: CustomScrollView(
-                      //semanticChildCount: 10,
                       slivers: [
                         SliverList(
-                          // delegate: SliverChildBuilderDelegate(
-                          //   (context, index) {
-                          //     return Container(
-                          //       height: 100.0,
-                          //       alignment: Alignment.center,
-                          //       color: Colors.blue[100 * (index % 9)],
-                          //       //child: Text("Menu Item $index"),
-                          //       child: Text(
-                          //         //"Menu Item " + arr[index],
-                          //         listUsers[index].fullName +
-                          //             " steps: " +
-                          //             listUsers[index].steps.toString(),
-                          //       ),
-                          //     );
-                          //   },
-                          //   childCount: listUsers.length,
-                          // ),
-                          //----------
                           delegate: SliverChildListDelegate(
                             [
                               for (var i = 0; i < amountOfUsers; i++)
                                 Container(
                                   height: 100.0,
                                   alignment: Alignment.center,
-                                  //color: Colors.blue[100 * (i % 9)],
-                                  //color: Color(0xFF0f0f1e),
-                                  //child: Text("Menu Item $index"),
                                   child: Text(
-                                      //"Menu Item " + arr[index],
                                       listUsers[i].fullName +
                                           " : " +
                                           listUsers[i].steps.toString() +
@@ -147,16 +97,10 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                                         fontSize: 30.0,
                                       )),
                                   decoration: BoxDecoration(
-                                      border: Border(bottom: BorderSide(width: 1.0, color: Colors.grey)),
-                                      //Border.all(width: 1.0, color: Colors.grey)
-                                    ),
-                                  // ListTile(
-                                  //   title: Text(
-                                  //       listUsers[i].fullName,
-                                  //     style: TextStyle(
-                                  //       color: Colors.white70,
-                                  //     )
-                                  //   ),
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            width: 1.0, color: Colors.grey)),
+                                  ),
                                 ),
                             ],
                           ),
@@ -165,7 +109,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                     ),
                   ),
                 ),
-
                 Expanded(
                     child: Row(
                   children: [
@@ -178,12 +121,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                // FloatingActionButton(
-                                //     backgroundColor: Color(0xff4c4f5e),
-                                //     child: Icon(
-                                //       Icons.add, color: Colors.white,),
-                                //     onPressed: null
-                                // ),
                                 RoundIconButton(
                                     icon: FontAwesomeIcons.angleLeft,
                                     onPressed: () {
@@ -194,12 +131,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                                                   PedometerScreen(
                                                     oUserPedometer: oUserLB,
                                                   )));
-
-                                      //Navigator.pushNamed(context, MainScreen.id);
-                                      // setState(() {
-                                      //   ourUser.treeCoins--;
-                                      // });
-                                      // db.updateUserTreeCoins(ourUser);
                                     }),
                               ],
                             ),
@@ -209,11 +140,6 @@ class _LeaderboardScreenState extends State<LeaderboardScreen> {
                     ),
                   ],
                 )),
-                // BottomButton(
-                //     buttonTitle: 'RE-CALCULATE',
-                //     onTap: () {
-                //       Navigator.pop(context);
-                //     }),
               ],
             ),
           );

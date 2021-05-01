@@ -5,7 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:tree_walker/models/user.dart';
 import 'package:tree_walker/services/firestore_service.dart';
 import 'main_screen.dart';
-import 'chat_screen.dart';
 import 'package:modal_progress_hud/modal_progress_hud.dart';
 
 class RegistrationScreen extends StatefulWidget {
@@ -17,8 +16,6 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _auth = FirebaseAuth.instance;
-  //final db = FirestoreService();
-  //OurUser _user;
   bool showSpinner = false;
   String email;
   String password;
@@ -41,7 +38,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   tag: 'logo',
                   child: Container(
                     height: 200.0,
-                    child: Image.asset('images/logo.png'),
+                    child: Image.asset('images/tree4.png'),
                   ),
                 ),
               ),
@@ -53,7 +50,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
                 cursorColor: Colors.white,
-
                 onChanged: (value) {
                   username = value;
                 },
@@ -68,7 +64,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
                 cursorColor: Colors.white,
-
                 onChanged: (value) {
                   email = value;
                 },
@@ -79,15 +74,14 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 height: 8.0,
               ),
               TextField(
-                obscureText: true, //for password
+                obscureText: true,
+                //for password
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.0, color: Colors.white),
                 cursorColor: Colors.white,
                 onChanged: (value) {
-                  //TODO
                   password = value;
                 },
-                //style: TextStyle(color: Colors.black),
                 decoration: kTextFieldDecoration.copyWith(
                     hintText: 'Enter your password'),
               ),
@@ -102,20 +96,10 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     showSpinner = true;
                   });
                   try {
-                    //print(email);
-                    //print(password);
-
-                    /*
-                    OurUser _user = OurUser();
-                     */
                     final newUser = await _auth.createUserWithEmailAndPassword(
                         email: email, password: password);
                     if (newUser != null) {
-                      print(username);
-                      print(newUser.user.uid);
-                      print(newUser.user.email);
-                      //----test----
-                       OurUser _user = OurUser();
+                      OurUser _user = OurUser();
                       _user.uid = newUser.user.uid;
                       _user.email = newUser.user.email;
                       _user.fullName = username;
@@ -125,20 +109,16 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
                       final db = FirestoreService();
                       final res = await db.createUser(_user);
-                      print(res);  //todo
-                      //String res = "success";
-                      // ignore: unrelated_type_equality_checks
+
                       if (res == "success") {
-                        //Navigator.pushNamed(context, MainScreen.id);
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MainScreen(
-                              userMain: _user,testt: "HELLO FROM login",
-                            )));
-
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MainScreen(
+                                      userMain: _user,
+                                      testt: "HELLO FROM login",
+                                    )));
                       }
-
-                      // Navigator.pushNamed(context, ChatScreen.id);
                     }
 
                     setState(() {
